@@ -15,7 +15,7 @@ public class Game {
     void run() {
         word = createWord();
         int wordLength = word.length();
-        while (wrongs < 5) {
+        while (wrongs < 10) {
             if (wordLength == foundedLettersCounter) {
                 break;
             }
@@ -71,6 +71,18 @@ public class Game {
 
                 break;
             case 5:
+
+                break;
+            case 6:
+
+                break;
+            case 7:
+
+                break;
+            case 8:
+
+                break;
+            case 9:
 
                 break;
         }
