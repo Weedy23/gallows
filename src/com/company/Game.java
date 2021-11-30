@@ -1,33 +1,35 @@
 package com.company;
 
 public class Game {
-
-    private Window win;
-    private String word;
-    private int wrongs;
-    private int foundedLettersCounter;
+    private static Window win = new Window();
+    private static String word;
+    private static int wrongs;
 
 
-    void Init() {
+    static void Init() {
         win.InitWin();
     }
 
-    void run() {
+    static void run() {
         word = createWord();
-        int wordLength = word.length();
+        wrongs = 0;
+        win.createShowWord(word.length());
+        boolean won = false;
         while (wrongs < 10) {
-            if (wordLength == foundedLettersCounter) {
+            System.out.println("I don't know why, but with this it works");
+            if (word.equals(win.showWord)) {
+                won = true;
                 break;
             }
         }
-        if (wordLength == foundedLettersCounter) {
+        if (won) {
             win.youWon();
         } else {
             win.youLose();
         }
     }
 
-    String createWord() {
+    static String createWord() {
         //return random word from file
         return "test";
     }
@@ -45,7 +47,19 @@ public class Game {
     }
 
     void findLetters(String letter) {
-        int index = word.indexOf(letter, 0);
+        int index = 0;
+        for (; index < word.length();) {
+            index = word.indexOf(letter, index);
+            if (index == -1) {
+                break;
+            }
+            showLetter(index);
+            index++;
+        }
+    }
+
+    void showLetter(int index) {
+        win.showLetter(word.charAt(index), index);
     }
 
     void wrongLetter() {
@@ -56,37 +70,35 @@ public class Game {
     void drawLine(int count) {
         switch (count) {
             case 0:
-
+                win.drawLine(20, 180, 120, 180);
                 break;
             case 1:
-
+                win.drawLine(70, 180, 70, 20);
                 break;
             case 2:
-
+                win.drawLine(70, 20, 200, 20);
                 break;
             case 3:
-
+                win.drawLine(200, 20, 200, 60);
                 break;
             case 4:
-
+                win.drawCircle();
                 break;
             case 5:
-
+                win.drawLine(200, 100, 200, 150);
                 break;
             case 6:
-
+                win.drawLine(200, 150, 150, 180);
                 break;
             case 7:
-
+                win.drawLine(200, 150, 250, 180);
                 break;
             case 8:
-
+                win.drawLine(200, 110, 130, 140);
                 break;
             case 9:
-
+                win.drawLine(200, 110, 270, 140);
                 break;
         }
     }
-
-
 }
