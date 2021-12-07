@@ -5,14 +5,14 @@ import java.awt.*;
 
 public class StartWonLoseWindows extends Main {
     private static JFrame start;
-    private JFrame lose;
-    private JFrame won;
+    private static JFrame lose;
+    private static JFrame won;
     private static JLabel startText;
     private static JButton startButton;
-    private JLabel loseText;
-    private JButton loseButton;
-    private JLabel wonText;
-    private JButton wonButton;
+    private static JLabel loseText;
+    //private static JButton loseButton;
+    private static JLabel wonText;
+    //private static JButton wonButton;
 
     public static void initStart() {
         start = new JFrame();
@@ -46,5 +46,41 @@ public class StartWonLoseWindows extends Main {
     public static void startPressed() {
         start.dispose();
         startGame();
+    }
+
+    public static void initWon() {
+        won = new JFrame();
+        won.setBounds(100, 100, 750, 200);
+        won.setLayout(null);
+        won.setBackground(Color.WHITE);
+        won.setVisible(true);
+
+        wonText = new JLabel();
+        wonText.setBounds(200, 0, 700, 150);
+        wonText.setLayout(null);
+        wonText.setBackground(Color.WHITE);
+        wonText.setVisible(true);
+        wonText.setFont(new Font("Calibre", Font.BOLD, 71));
+        wonText.setText("You Won");
+
+        won.add(wonText);
+    }
+
+    public static void initLose() {
+        lose = new JFrame();
+        lose.setBounds(100, 100, 750, 200);
+        lose.setLayout(null);
+        lose.setBackground(Color.WHITE);
+        lose.setVisible(true);
+
+        loseText = new JLabel();
+        loseText.setBounds(200, 0, 700, 150);
+        loseText.setLayout(null);
+        loseText.setBackground(Color.WHITE);
+        loseText.setVisible(true);
+        loseText.setFont(new Font("Calibre", Font.BOLD, 71));
+        loseText.setText("You Lose");
+
+        lose.add(loseText);
     }
 }

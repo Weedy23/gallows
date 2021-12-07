@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Window extends Game{
+    private static StartWonLoseWindows startWonLoseWindows = new StartWonLoseWindows();
+
     protected  JFrame window;
     protected  JPanel screen;
     protected  JPanel jLetters;
@@ -100,10 +102,12 @@ public class Window extends Game{
 
     public void youWon() {
         window.dispose();
+        startWonLoseWindows.initWon();
     }
 
     public void youLose() {
         window.dispose();
+        startWonLoseWindows.initLose();
     }
 
     public void showLetter(char letter, int index) {
