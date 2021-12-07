@@ -2,42 +2,45 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class Window extends Game{
-    private JFrame window;
-    private JPanel screen;
-    private JPanel jLetters;
-    private JPanel jWord;
-    private JButton[] letters;
-    private JLabel word;
+    protected  JFrame window;
+    protected  JPanel screen;
+    protected  JPanel jLetters;
+    protected  JButton[] letters;
+    protected  JLabel word;
     public String showWord;
-    private Graphics g;
+    protected Graphics g;
 
     public void InitWin() {
+        System.out.println("LOL");
         window = new JFrame();
         InitWinProperties();
         InitWinStruct();
     }
 
     public void InitWinProperties() {
-        window.setBounds(100, 100, 300, 500);
+        System.out.println("LOL1");
+        window.setBounds(100, 100, 500, 500);
         window.setLayout(null);
-        window.setBackground(Color.WHITE);
+        window.setBackground(Color.GREEN);
         window.setVisible(true);
     }
 
     public void InitWinStruct() {
+        System.out.println("LOL2");
         screen = new JPanel();
-        screen.setBounds(0, 0, 300, 200);
-        screen.setLayout(null);
+        screen.setBounds(0, 0, window.getWidth(), 200);
+        //screen.setLayout(null);
         screen.setBackground(Color.GRAY);
         screen.setVisible(true);
 
         window.add(screen);
 
         jLetters = new JPanel();
-        jLetters.setBounds(0, 300, 300, 100);
-        jLetters.setLayout(null);
+        jLetters.setBounds(0, 300, window.getWidth(), 100);
+        //jLetters.setLayout(null);
         jLetters.setBackground(Color.lightGray);
         jLetters.setVisible(true);
 
@@ -45,16 +48,16 @@ public class Window extends Game{
 
         window.add(jLetters);
 
-        jWord = new JPanel();
-        jWord.setBounds(0, 200, 300, 100);
-        jWord.setLayout(null);
+        JPanel jWord = new JPanel();
+        jWord.setBounds(0, 200, window.getWidth(), 100);
+        //jWord.setLayout(null);
         jWord.setBackground(Color.lightGray);
         jWord.setVisible(true);
 
         word = new JLabel();
-        word.setBounds(20, 20, 260, 60);
-        word.setLayout(null);
-        word.setFont(new Font("Calibri", Font.PLAIN, 40));
+        word.setBounds(20, 20, window.getWidth() - 40, 60);
+        //word.setLayout(null);
+        word.setFont(new Font("Calibre", Font.PLAIN, 40));
         word.setVisible(true);
 
         jWord.add(word);
@@ -64,15 +67,18 @@ public class Window extends Game{
 
     public void createLetters() {
         String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        int width = (jLetters.getWidth() - 40) / 13;
+        int height = (jLetters.getHeight() - 40) / 2;
         letters = new JButton[26];
         for (int i = 0; i < 26; i++) {
             letters[i] = new JButton();
-            letters[i].setFont(new Font("Calinri", Font.PLAIN, 5));
+            letters[i].setFont(new Font("Calibre", Font.PLAIN, 5));
             letters[i].setText(alphabet[i]);
+            letters[i].setVisible(true);
             if (i < 13) {
-                letters[i].setBounds(i*(20) + 20, 20, 20, 20);
+                letters[i].setBounds(i*width + 20, 20, width, height);
             } else {
-                letters[i].setBounds((i - 13)*(20) + 20, 60, 20, 20);
+                letters[i].setBounds((i - 13)*width + 20, 40 + height, width, height);
             }
             jLetters.add(letters[i]);
             int finalI = i;

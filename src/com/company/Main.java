@@ -1,8 +1,10 @@
 package com.company;
 
-public class Main extends StartWonLoseWindows {
+public class Main extends Game {
 
     public static void main(String[] args) {
-        initStart();
+        Init();
+        run();
+        //initStart();
     }
 }

@@ -1,12 +1,9 @@
 package com.company;
 
-import javafx.animation.PauseTransition;
-
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Time;
 
-public class StartWonLoseWindows extends Game{
+public class StartWonLoseWindows extends Game {
     private static JFrame start;
     private JFrame lose;
     private JFrame won;
@@ -29,7 +26,7 @@ public class StartWonLoseWindows extends Game{
         startText.setLayout(null);
         startText.setBackground(Color.WHITE);
         startText.setVisible(true);
-        startText.setFont(new Font("Calibri", Font.BOLD, 80));
+        startText.setFont(new Font("Calibre", Font.BOLD, 71));
         startText.setText("Welcome to Gallows");
 
         start.add(startText);
@@ -39,7 +36,7 @@ public class StartWonLoseWindows extends Game{
         startButton.setLayout(null);
         startButton.setBackground(Color.WHITE);
         startButton.setVisible(true);
-        startButton.setFont(new Font("Calibri", Font.BOLD, 60));
+        startButton.setFont(new Font("Calibre", Font.BOLD, 60));
         startButton.setText("Start");
         startButton.addActionListener(evt -> startGame());
 

@@ -48,7 +48,7 @@ public class Game {
 
     void findLetters(String letter) {
         int index = 0;
-        for (; index < word.length();) {
+        while (index < word.length()) {
             index = word.indexOf(letter, index);
             if (index == -1) {
                 break;
