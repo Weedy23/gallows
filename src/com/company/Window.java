@@ -2,7 +2,6 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public class Window extends Game{
     protected  JFrame window;
@@ -22,9 +21,8 @@ public class Window extends Game{
 
     public void InitWinProperties() {
         System.out.println("LOL1");
-        window.setBounds(100, 100, 500, 500);
+        window.setBounds(100, 100, 600, 500);
         window.setLayout(null);
-        window.setBackground(Color.GREEN);
         window.setVisible(true);
     }
 
@@ -39,7 +37,7 @@ public class Window extends Game{
         window.add(screen);
 
         jLetters = new JPanel();
-        jLetters.setBounds(0, 300, window.getWidth(), 100);
+        jLetters.setBounds(0, 300, window.getWidth() - 20, 100);
         //jLetters.setLayout(null);
         jLetters.setBackground(Color.lightGray);
         jLetters.setVisible(true);
@@ -72,13 +70,13 @@ public class Window extends Game{
         letters = new JButton[26];
         for (int i = 0; i < 26; i++) {
             letters[i] = new JButton();
-            letters[i].setFont(new Font("Calibre", Font.PLAIN, 5));
+            letters[i].setFont(new Font("Calibre", Font.BOLD, 10));
             letters[i].setText(alphabet[i]);
             letters[i].setVisible(true);
             if (i < 13) {
-                letters[i].setBounds(i*width + 20, 20, width, height);
+                letters[i].setBounds(i*width, 20, width, height);
             } else {
-                letters[i].setBounds((i - 13)*width + 20, 40 + height, width, height);
+                letters[i].setBounds((i - 13)*width, 40 + height, width, height);
             }
             jLetters.add(letters[i]);
             int finalI = i;

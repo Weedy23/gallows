@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
-public class StartWonLoseWindows extends Game {
+public class StartWonLoseWindows extends Main {
     private static JFrame start;
     private JFrame lose;
     private JFrame won;
@@ -38,14 +38,13 @@ public class StartWonLoseWindows extends Game {
         startButton.setVisible(true);
         startButton.setFont(new Font("Calibre", Font.BOLD, 60));
         startButton.setText("Start");
-        startButton.addActionListener(evt -> startGame());
+        startButton.addActionListener(evt -> startPressed());
 
         start.add(startButton);
     }
 
-    public static void startGame() {
+    public static void startPressed() {
         start.dispose();
-        Init();
-        run();
+        startGame();
     }
 }
