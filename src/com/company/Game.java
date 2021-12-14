@@ -1,104 +1,89 @@
 package com.company;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Game {
     private static Window win = new Window();
     private static String word;
-    private static int wrongs;
+    private static JFrame start;
+    private static JLabel startText;
+    private static JButton startButton;
 
+    private static String path = "C:\\Users\\Administrator\\IdeaProjects\\gallows\\src\\com\\company\\1-1000.txt";
 
-    static void Init() {
-        win.InitWin();
+    static void start() {
+        //initStart();
+        run();
+    }
+
+    public static void initStart() {
+        start = new JFrame();
+        start.setBounds(100, 100, 750, 300);
+        start.setLayout(null);
+        start.setBackground(Color.WHITE);
+        start.setVisible(true);
+
+        startText = new JLabel();
+        startText.setBounds(20, 0, 700, 150);
+        startText.setLayout(null);
+        startText.setBackground(Color.WHITE);
+        startText.setVisible(true);
+        startText.setFont(new Font("Calibre", Font.BOLD, 71));
+        startText.setText("Welcome to Gallows");
+
+        start.add(startText);
+
+        startButton = new JButton();
+        startButton.setBounds(120, 150, 500, 100);
+        startButton.setLayout(null);
+        startButton.setBackground(Color.WHITE);
+        startButton.setVisible(true);
+        startButton.setFont(new Font("Calibre", Font.BOLD, 60));
+        startButton.setText("Start");
+        startButton.addActionListener(evt -> startPressed());
+
+        start.add(startButton);
+    }
+
+    public static void startPressed() {
+        start.dispose();
+        run();
     }
 
     static void run() {
+        win.InitWin();
         word = createWord();
-        wrongs = 0;
+        win.enterWord(word);
         win.createShowWord(word.length());
-        boolean won = false;
-        while (wrongs < 10) {
-            System.out.println("I don't know why, but with this it works");
-            if (word.equals(win.showWord)) {
-                won = true;
-                break;
-            }
-        }
-        if (won) {
-            win.youWon();
-        } else {
-            win.youLose();
-        }
+        win.startGame();
     }
 
     static String createWord() {
-        //return random word from file
-        return "test";
-    }
+        Scanner scanner = null;
+        String[] words = new String[1000];
 
-    void letterPressed(String letter) {
-        if (checkLetterInWord(letter)) {
-            findLetters(letter);
-        } else {
-            wrongLetter();
+        try {
+            scanner = new Scanner(new File(path));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-    }
+        scanner.useDelimiter("\n");
 
-    boolean checkLetterInWord(String letter) {
-        return word.contains(letter);
-    }
-
-    void findLetters(String letter) {
-        int index = 0;
-        while (index < word.length()) {
-            index = word.indexOf(letter, index);
-            if (index == -1) {
-                break;
-            }
-            showLetter(index);
-            index++;
+        int i;
+        for (i = 0; scanner.hasNext(); i++) {
+            words[i] = scanner.nextLine();
         }
+
+        Random rand = new Random();
+        int index = rand.nextInt(i + 1);
+
+        return words[index];
     }
 
-    void showLetter(int index) {
-        win.showLetter(word.charAt(index), index);
-    }
 
-    void wrongLetter() {
-        drawLine(wrongs);
-        wrongs++;
-    }
-
-    void drawLine(int count) {
-        switch (count) {
-            case 0:
-                win.drawLine(20, 180, 120, 180);
-                break;
-            case 1:
-                win.drawLine(70, 180, 70, 20);
-                break;
-            case 2:
-                win.drawLine(70, 20, 200, 20);
-                break;
-            case 3:
-                win.drawLine(200, 20, 200, 60);
-                break;
-            case 4:
-                win.drawCircle();
-                break;
-            case 5:
-                win.drawLine(200, 100, 200, 150);
-                break;
-            case 6:
-                win.drawLine(200, 150, 150, 180);
-                break;
-            case 7:
-                win.drawLine(200, 150, 250, 180);
-                break;
-            case 8:
-                win.drawLine(200, 110, 130, 140);
-                break;
-            case 9:
-                win.drawLine(200, 110, 270, 140);
-                break;
-        }
-    }
 }

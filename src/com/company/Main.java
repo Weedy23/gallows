@@ -1,17 +1,10 @@
 package com.company;
 
-public class Main extends Game {
+public class Main {
 
-    //private static StartWonLoseWindows startWonLoseWindows = new StartWonLoseWindows();
+    private static Game game = new Game();
 
     public static void main(String[] args) {
-        Init();
-        run();
-        //startWonLoseWindows.initStart();
-    }
-
-    public static void startGame() {
-        Init();
-        run();
+        game.start();
     }
 }

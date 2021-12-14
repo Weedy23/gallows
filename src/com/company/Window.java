@@ -3,16 +3,24 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
-public class Window extends Game{
-    private static StartWonLoseWindows startWonLoseWindows = new StartWonLoseWindows();
+public class Window {
 
     protected  JFrame window;
     protected  JPanel screen;
     protected  JPanel jLetters;
     protected  JButton[] letters;
     protected  JLabel word;
+    public int wrongs = 0;
+    public String endWord;
     public String showWord;
     protected Graphics g;
+
+    private static JFrame lose;
+    private static JFrame won;
+    private static JLabel loseText;
+    //private static JButton loseButton;
+    private static JLabel wonText;
+    //private static JButton wonButton;
 
     public void InitWin() {
         System.out.println("LOL");
@@ -32,7 +40,7 @@ public class Window extends Game{
         System.out.println("LOL2");
         screen = new JPanel();
         screen.setBounds(0, 0, window.getWidth(), 200);
-        //screen.setLayout(null);
+        screen.setLayout(null);
         screen.setBackground(Color.GRAY);
         screen.setVisible(true);
 
@@ -40,7 +48,7 @@ public class Window extends Game{
 
         jLetters = new JPanel();
         jLetters.setBounds(0, 300, window.getWidth() - 20, 100);
-        //jLetters.setLayout(null);
+        jLetters.setLayout(null);
         jLetters.setBackground(Color.lightGray);
         jLetters.setVisible(true);
 
@@ -50,7 +58,7 @@ public class Window extends Game{
 
         JPanel jWord = new JPanel();
         jWord.setBounds(0, 200, window.getWidth(), 100);
-        //jWord.setLayout(null);
+        jWord.setLayout(null);
         jWord.setBackground(Color.lightGray);
         jWord.setVisible(true);
 
@@ -87,8 +95,81 @@ public class Window extends Game{
     }
 
     public void letterPressed(int letterIndex) {
-        letterPressed(letters[letterIndex].getText());
+        check(letters[letterIndex].getText());
         letters[letterIndex].setEnabled(false);
+    }
+
+    void check(String letter) {
+        if (checkLetterInWord(letter)) {
+            findLetters(letter);
+        } else {
+            wrongLetter();
+        }
+    }
+
+    boolean checkLetterInWord(String letter) {
+        return endWord.contains(letter);
+    }
+
+    void findLetters(String letter) {
+        int index = 0;
+        while (index < endWord.length()) {
+            index = endWord.indexOf(letter, index);
+            if (index == -1) {
+                break;
+            }
+            showLetter(letter, index);
+            index++;
+        }
+    }
+
+    public void showLetter(String letter, int index) {
+        showWord = showWord.substring(0, index) + letter + showWord.substring(index + 1);
+        updateWord();
+    }
+
+    public void wrongLetter() {
+        draw();
+        wrongs++;
+    }
+
+    void draw() {
+        switch (wrongs) {
+            case 0:
+                drawLine(20, 180, 120, 180);
+                break;
+            case 1:
+                drawLine(70, 180, 70, 20);
+                break;
+            case 2:
+                drawLine(70, 20, 200, 20);
+                break;
+            case 3:
+                drawLine(200, 20, 200, 60);
+                break;
+            case 4:
+                drawCircle();
+                break;
+            case 5:
+                drawLine(200, 100, 200, 150);
+                break;
+            case 6:
+                drawLine(200, 150, 150, 180);
+                break;
+            case 7:
+                drawLine(200, 150, 250, 180);
+                break;
+            case 8:
+                drawLine(200, 110, 130, 140);
+                break;
+            case 9:
+                drawLine(200, 110, 270, 140);
+                break;
+        }
+    }
+
+    public void enterWord(String word) {
+        endWord = word;
     }
 
     public void createShowWord(int len) {
@@ -100,19 +181,66 @@ public class Window extends Game{
         word.setText(showWord);
      }
 
+    public void startGame() {
+        boolean won = false;
+        while (wrongs < 10) {
+            System.out.println("I don't know why, but with this it works");
+            if (endWord.equals(showWord)) {
+                won = true;
+                break;
+            }
+        }
+        if (won) {
+            youWon();
+        } else {
+            youLose();
+        }
+    }
+
     public void youWon() {
         window.dispose();
-        startWonLoseWindows.initWon();
+        initWon();
     }
 
     public void youLose() {
         window.dispose();
-        startWonLoseWindows.initLose();
+        initLose();
     }
 
-    public void showLetter(char letter, int index) {
-        showWord = showWord.substring(0, index) + letter + showWord.substring(index + 1);
-        updateWord();
+    public static void initWon() {
+        won = new JFrame();
+        won.setBounds(100, 100, 750, 200);
+        won.setLayout(null);
+        won.setBackground(Color.WHITE);
+        won.setVisible(true);
+
+        wonText = new JLabel();
+        wonText.setBounds(200, 0, 700, 150);
+        wonText.setLayout(null);
+        wonText.setBackground(Color.WHITE);
+        wonText.setVisible(true);
+        wonText.setFont(new Font("Calibre", Font.BOLD, 71));
+        wonText.setText("You Won");
+
+        won.add(wonText);
+    }
+
+    public static void initLose() {
+        lose = new JFrame();
+        lose.setBounds(100, 100, 750, 200);
+        lose.setLayout(null);
+        lose.setBackground(Color.WHITE);
+        lose.setVisible(true);
+
+        loseText = new JLabel();
+        loseText.setBounds(200, 0, 700, 150);
+        loseText.setLayout(null);
+        loseText.setBackground(Color.WHITE);
+        loseText.setVisible(true);
+        loseText.setFont(new Font("Calibre", Font.BOLD, 71));
+        loseText.setText("You Lose");
+
+        lose.add(loseText);
     }
 
     public void drawLine(int x1, int y1,int x2, int y2) {
