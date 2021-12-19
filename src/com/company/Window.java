@@ -18,26 +18,21 @@ public class Window {
     private static JFrame lose;
     private static JFrame won;
     private static JLabel loseText;
-    //private static JButton loseButton;
     private static JLabel wonText;
-    //private static JButton wonButton;
 
     public void InitWin() {
-        System.out.println("LOL");
         window = new JFrame();
         InitWinProperties();
         InitWinStruct();
     }
 
     public void InitWinProperties() {
-        System.out.println("LOL1");
-        window.setBounds(100, 100, 600, 500);
+        window.setBounds(100, 100, 800, 500);
         window.setLayout(null);
         window.setVisible(true);
     }
 
     public void InitWinStruct() {
-        System.out.println("LOL2");
         screen = new JPanel();
         screen.setBounds(0, 0, window.getWidth(), 200);
         screen.setLayout(null);
@@ -47,7 +42,7 @@ public class Window {
         window.add(screen);
 
         jLetters = new JPanel();
-        jLetters.setBounds(0, 300, window.getWidth() - 20, 100);
+        jLetters.setBounds(0, 300, window.getWidth(), 100);
         jLetters.setLayout(null);
         jLetters.setBackground(Color.lightGray);
         jLetters.setVisible(true);
@@ -82,11 +77,10 @@ public class Window {
             letters[i] = new JButton();
             letters[i].setFont(new Font("Calibre", Font.BOLD, 10));
             letters[i].setText(alphabet[i]);
-            letters[i].setVisible(true);
             if (i < 13) {
-                letters[i].setBounds(i*width, 20, width, height);
+                letters[i].setBounds(i*width + 20, 20, width, height);
             } else {
-                letters[i].setBounds((i - 13)*width, 40 + height, width, height);
+                letters[i].setBounds((i - 13)*width + 20, 40 + height, width, height);
             }
             jLetters.add(letters[i]);
             int finalI = i;
@@ -182,8 +176,10 @@ public class Window {
      }
 
     public void startGame() {
+        reloadButtons();
+
         boolean won = false;
-        while (wrongs < 10) {
+        for (; wrongs < 10;) {
             System.out.println("I don't know why, but with this it works");
             if (endWord.equals(showWord)) {
                 won = true;
@@ -194,6 +190,12 @@ public class Window {
             youWon();
         } else {
             youLose();
+        }
+    }
+
+    public void reloadButtons() {
+        for (int i = 0; i < 26; i++) {
+            letters[i].setVisible(true);
         }
     }
 

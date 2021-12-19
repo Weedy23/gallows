@@ -1,7 +1,6 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Random;
@@ -10,48 +9,26 @@ import java.util.Scanner;
 public class Game {
     private static Window win = new Window();
     private static String word;
-    private static JFrame start;
-    private static JLabel startText;
-    private static JButton startButton;
+    private static JOptionPane start;
 
     private static String path = "C:\\Users\\Administrator\\IdeaProjects\\gallows\\src\\com\\company\\1-1000.txt";
 
     static void start() {
-        //initStart();
-        run();
+        initStart();
     }
 
     public static void initStart() {
-        start = new JFrame();
-        start.setBounds(100, 100, 750, 300);
-        start.setLayout(null);
-        start.setBackground(Color.WHITE);
-        start.setVisible(true);
+        Object startT = "Start";
 
-        startText = new JLabel();
-        startText.setBounds(20, 0, 700, 150);
-        startText.setLayout(null);
-        startText.setBackground(Color.WHITE);
-        startText.setVisible(true);
-        startText.setFont(new Font("Calibre", Font.BOLD, 71));
-        startText.setText("Welcome to Gallows");
+        start = new JOptionPane();
+        int action = start.showConfirmDialog(win.window, "Start Gallows");
 
-        start.add(startText);
-
-        startButton = new JButton();
-        startButton.setBounds(120, 150, 500, 100);
-        startButton.setLayout(null);
-        startButton.setBackground(Color.WHITE);
-        startButton.setVisible(true);
-        startButton.setFont(new Font("Calibre", Font.BOLD, 60));
-        startButton.setText("Start");
-        startButton.addActionListener(evt -> startPressed());
-
-        start.add(startButton);
+        if (action == JOptionPane.OK_OPTION) {
+            startPressed();
+        }
     }
 
     public static void startPressed() {
-        start.dispose();
         run();
     }
 
